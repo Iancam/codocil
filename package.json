@@ -1,0 +1,13 @@
+{
+  "name": "codocil",
+  "version": "1.0.0",
+  "description": "automates the creation of itermocil arrangements for common project types by watching your dev directory",
+  "main": "index.js",
+  "author": "Ian Campbell",
+  "license": "MIT",
+  "dependencies": {
+    "chokidar": "^2.0.4",
+    "js-yaml": "^3.12.0",
+    "lodash": "^4.17.11"
+  }
+}
