@@ -18,6 +18,7 @@ const ignoredDirectories = [
   ".git",
   ".vscode",
   ".idea",
+  "__pycache__",
   /venv*/,
   "__snapshots__",
   ".svn"
@@ -30,20 +31,14 @@ const getConfigs = (config_path = CONFIG_PATH) => {
   return yaml.safeLoad(fs.readFileSync(config_path));
 };
 
-module.exports = function findProjects(
-  pathLike,
-  options = { recursive: false }
-) {
-  const parsedPath = path.resolve(
-    pathLike.replace("~", require("os").homedir())
-  );
+function shouldIgnore(parsedPath) {
   const ignore = ignoredDirectories.map(pattern => {
     return isString(pattern)
       ? parsedPath.includes(pattern)
       : RegExp(pattern).test(parsedPath);
   });
   const shouldIgnore = ignore.reduce((a, b) => a || b);
-
+  return shouldIgnore;
   if (shouldIgnore) {
     console.log(
       zip(ignoredDirectories, ignore).filter(([dir, ign]) => ign),
@@ -51,20 +46,30 @@ module.exports = function findProjects(
     );
     return;
   }
-  // console.log(parsedPath);
+}
 
+module.exports = function findProjects(
+  pathLike,
+  options = { recursive: false }
+) {
+  const parsedPath = path.resolve(
+    pathLike.replace("~", require("os").homedir())
+  );
+  if (shouldIgnore(parsedPath)) return;
   const candidates = Object.values(project_types)
     .filter(({ id }) =>
       isArray(id)
         ? id.reduce((exists, idel) => exists && fs.existsSync(idel), true)
         : fs.existsSync(id)
     )
-    .map(type => ({ path, type }));
+    .map(type => ({ path: parsedPath, type }));
+
   if (options.recursive) {
     const dirs = fs
       .readdirSync(parsedPath, { withFileTypes: true })
       .filter(ent => ent.isDirectory())
       .map(ent => path.join(parsedPath, ent.name));
+
     return [
       ...candidates,
       ...dirs.map(dir => findProjects(dir, { recursive: true }))
