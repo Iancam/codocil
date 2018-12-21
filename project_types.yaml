@@ -1,0 +1,4 @@
+rails:
+  id: Gemfile
+javascript:
+  id: package.json

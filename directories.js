@@ -1,41 +1,51 @@
 const fs = require("fs");
+const isArray = require("lodash/isArray");
 const path = require("path");
 const yaml = require("js-yaml");
-const intersect = require("lodash/intersection");
-
 const project_types = yaml.safeLoad(fs.readFileSync("./project_types.yaml"));
-// read config file for directory to watch
-// watch directory for new directories
-
 const CONFIG_DIRECTORY = "~/.itermocil";
 const CONFIG_FILE = ".codicil.yaml";
 const CONFIG_PATH = path.join(CONFIG_DIRECTORY, CONFIG_FILE);
-
 const EXAMPLE_CONFIGS = {
   devDirectory: "~/Developer"
 };
 
+const ignoredDirectories = ["node_modules", ".git", ".code", ".idea", /venv*/];
 //todo: normalize pathy paths
+//todo: handle multiple identifiers on a project root
+//ignore nodemodules and others when searching
 
 const getConfigs = (config_path = CONFIG_PATH) => {
   return yaml.safeLoad(fs.readFileSync(config_path));
 };
 
-function findProjects(root = EXAMPLE_CONFIGS.devDirectory) {
-  const contents = fs.readdirSync(root, { withFileTypes: true });
-  const [files, dirs] = contents.reduce(
-    ([files, dirs], f) =>
-      f.isDirectory() ? dirs.push(f.name) : files.push(f.name),
-    [[], []]
+module.exports = function findProjects(
+  pathLike,
+  options = { recursive: false }
+) {
+  console.log(pathLike);
+
+  const parsedPath = path.resolve(
+    pathLike.replace("~", require("os").homedir())
   );
-  const projectPaths = intersect(files, Object.keys(project_types))
-    .map(proj => path.join(root, proj))
-    .concat(dirs.map(dir => findProjects(dir, newPaths)));
-  return projectPaths;
-}
-
-//try makeItermocilFile
-// else keep watching for file changes until we get a known project type
-//
-
-//how do we tell if the file is live?
+  const candidates = Object.values(project_types)
+    .filter(({ id }) =>
+      isArray(id)
+        ? id.reduce((exists, idel) => exists && fs.existsSync(idel), true)
+        : fs.existsSync(id)
+    )
+    .map(type => ({ path, type }));
+  if (options.recursive) {
+    const dirs = fs
+      .readdirSync(parsedPath, { withFileTypes: true })
+      .filter(
+        ent => ent.isDirectory() && !ignoredDirectories.includes(ent.name)
+      )
+      .map(ent => path.join(parsedPath, ent.name));
+    return [
+      ...candidates,
+      ...dirs.map(dir => findProjects(dir, { recursive: true }))
+    ];
+  }
+  return candidates;
+};
