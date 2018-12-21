@@ -1,4 +1,10 @@
-rails:
+- name: rails
   id: Gemfile
-javascript:
+  panes:
+    - commands:
+        - rails server
+      name: "server"
+- name: javascript
   id: package.json
+- name: python
+  id: requirements.txt

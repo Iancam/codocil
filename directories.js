@@ -57,7 +57,7 @@ module.exports = function findProjects(
   );
   if (shouldIgnore(parsedPath)) return;
 
-  const candidates = Object.values(project_types)
+  const candidates = project_types
     .filter(({ id }) =>
       isArray(id)
         ? id.reduce(
@@ -67,12 +67,7 @@ module.exports = function findProjects(
           )
         : fs.existsSync(path.join(parsedPath, id))
     )
-    .map(({ id }) => ({ path: parsedPath, type: id }))
-    .reduce((obj, { path, type }) => {
-      obj[type] = path;
-      return obj;
-    }, {});
-
+    .map(({ id }) => ({ path: parsedPath, type: id }));
   if (options.recursive) {
     const dirs = fs
       .readdirSync(parsedPath, { withFileTypes: true })
@@ -80,8 +75,13 @@ module.exports = function findProjects(
       .map(ent => path.join(parsedPath, ent.name));
 
     return [
-      candidates,
-      ...dirs.map(dir => findProjects(dir, { recursive: true }))
+      ...candidates,
+      ...dirs
+        .map(dir => findProjects(dir, { recursive: true }))
+        .filter(dir => dir)
+        .reduce((arr, dir) => {
+          return arr.concat(dir);
+        }, [])
     ];
   }
   return candidates;
