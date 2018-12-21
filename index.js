@@ -1,3 +1,4 @@
 const projects = require("./directories");
 
-console.log(projects("~/Developer", { recursive: true }));
+const p = projects("~/Developer", { recursive: true });
+console.log(p);

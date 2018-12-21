@@ -56,13 +56,22 @@ module.exports = function findProjects(
     pathLike.replace("~", require("os").homedir())
   );
   if (shouldIgnore(parsedPath)) return;
+
   const candidates = Object.values(project_types)
     .filter(({ id }) =>
       isArray(id)
-        ? id.reduce((exists, idel) => exists && fs.existsSync(idel), true)
-        : fs.existsSync(id)
+        ? id.reduce(
+            (exists, idel) =>
+              exists && fs.existsSync(idel.map(path.join(parsedPath, idel))),
+            true
+          )
+        : fs.existsSync(path.join(parsedPath, id))
     )
-    .map(type => ({ path: parsedPath, type }));
+    .map(({ id }) => ({ path: parsedPath, type: id }))
+    .reduce((obj, { path, type }) => {
+      obj[type] = path;
+      return obj;
+    }, {});
 
   if (options.recursive) {
     const dirs = fs
@@ -71,7 +80,7 @@ module.exports = function findProjects(
       .map(ent => path.join(parsedPath, ent.name));
 
     return [
-      ...candidates,
+      candidates,
       ...dirs.map(dir => findProjects(dir, { recursive: true }))
     ];
   }
