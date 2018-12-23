@@ -1,4 +1,8 @@
 const projects = require("./directories");
+const itermocil = require("./itermocil");
 
 const p = projects("~/Developer", { recursive: true });
-console.log(p);
+
+const i = itermocil(p[1]);
+
+console.log(i);

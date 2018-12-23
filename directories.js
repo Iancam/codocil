@@ -69,20 +69,19 @@ module.exports = function findProjects(
     )
     .map(({ id }) => ({ path: parsedPath, type: id }));
   if (options.recursive) {
-    const dirs = fs
-      .readdirSync(parsedPath, { withFileTypes: true })
-      .filter(ent => ent.isDirectory())
-      .map(ent => path.join(parsedPath, ent.name));
-
-    return [
-      ...candidates,
-      ...dirs
+    return candidates.concat(
+      fs
+        .readdirSync(parsedPath, { withFileTypes: true })
+        .filter(ent => ent.isDirectory())
+        .map(ent => path.join(parsedPath, ent.name))
         .map(dir => findProjects(dir, { recursive: true }))
         .filter(dir => dir)
         .reduce((arr, dir) => {
           return arr.concat(dir);
         }, [])
-    ];
+    );
   }
+
+  //[{ path: parsedPath, type: id }]
   return candidates;
 };

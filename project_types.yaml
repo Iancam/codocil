@@ -1,10 +1,16 @@
-- name: rails
-  id: Gemfile
-  panes:
-    - commands:
-        - rails server
-      name: "server"
+# - name: rails
+#   id: Gemfile
+#   panes:
+#     - name: "server"
+#       commands:
+#         - rails server
+#   editorCommand: rubymine
+
 - name: javascript
   id: package.json
-- name: python
-  id: requirements.txt
+  panes:
+    - name: "server"
+      commands:
+        - yarn start
+# - name: python
+#   id: requirements.txt
