@@ -6,12 +6,8 @@ const path = require("path");
 const yaml = require("js-yaml");
 const project_types = yaml.safeLoad(fs.readFileSync("./project_types.yaml"));
 const CONFIG_DIRECTORY = "~/.itermocil";
-const CONFIG_FILE = ".codicil.yaml";
-const CONFIG_PATH = path.join(CONFIG_DIRECTORY, CONFIG_FILE);
-
-const EXAMPLE_CONFIGS = {
-  devDirectory: "~/Developer"
-};
+// const CONFIG_FILE = ".codicil.yaml";
+// const CONFIG_PATH = path.join(CONFIG_DIRECTORY, CONFIG_FILE);
 
 const ignoredDirectories = [
   "node_modules",
@@ -27,9 +23,9 @@ const ignoredDirectories = [
 //todo: handle multiple identifiers on a project root
 //ignore nodemodules and others when searching
 
-const getConfigs = (config_path = CONFIG_PATH) => {
-  return yaml.safeLoad(fs.readFileSync(config_path));
-};
+// const getConfigs = (config_path = CONFIG_PATH) => {
+//   return yaml.safeLoad(fs.readFileSync(config_path));
+// };
 
 function shouldIgnore(parsedPath) {
   const ignore = ignoredDirectories.map(pattern => {
