@@ -1,14 +1,45 @@
 {
   "name": "codocil",
-  "version": "1.0.0",
-  "description": "automates the creation of itermocil arrangements for common project types by watching your dev directory",
-  "main": "index.js",
-  "author": "Ian Campbell",
+  "version": "0.0.1",
+  "description": "codocil CLI",
+  "private": true,
+  "bin": {
+    "codocil": "bin/codocil"
+  },
+  "scripts": {
+    "format": "prettier --write **/*.{js,json} && standard --fix",
+    "lint": "standard",
+    "test": "jest",
+    "watch": "jest --watch",
+    "snapupdate": "jest --updateSnapshot",
+    "coverage": "jest --coverage"
+  },
+  "files": [
+    "LICENSE",
+    "readme.md",
+    "docs",
+    "bin",
+    "src"
+  ],
   "license": "MIT",
   "dependencies": {
-    "chokidar": "^2.0.4",
-    "js-yaml": "^3.12.0",
-    "lodash": "^4.17.11",
-    "nodemon": "^1.18.9"
+    "gluegun": "next"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1",
+    "prettier": "^1.12.1",
+    "jest": "^23.6.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
   }
 }
