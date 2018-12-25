@@ -1,24 +1,42 @@
-const projects = require("./directories");
-const itermocil = require("./itermocil");
-const fs = require("fs");
-const { resolve, join } = require("path");
+const projects = require('./directories')
+const itermocil = require('./itermocil')
+const fs = require('fs')
+const { resolve, join } = require('path')
+const { expandTilde } = require('./utils')
+const { exec } = require('child_process')
 
-const { expandTilde } = require("./utils");
+const args = ['init', 'update']
 
-const directory = expandTilde(process.argv[2] || process.cwd());
-const ITERMOCIL_DIRECTORY = "~/.itermocil";
-const CODOCIL_PREFIX = "COD_";
+const activity = process.argv[2]
+  ? args.find(x => x === process.argv[2])
+  : 'init'
 
-const p = projects(directory, { recursive: true });
+const directory = expandTilde(process.cwd())
+const CODOCIL_DIRECTORY = '~/.itermocil/codocil'
 
-p.map(itermocil).forEach(({ fname, contents }) => {
-  const path = resolve(
-    join(expandTilde(ITERMOCIL_DIRECTORY), CODOCIL_PREFIX + fname)
-  );
+//[{ path: parsedPath, type: id }]
+const p = projects(directory, { recursive: true })
+
+const itermocil = p.map(itermocil)
+
+itermocil.forEach(({ fname, contents }) => {
+  const path = resolve(join(expandTilde(CODOCIL_DIRECTORY), fname))
   if (!fs.existsSync(path)) {
-    fs.writeFileSync(path, contents);
+    fs.writeFileSync(path, contents)
   }
-});
+})
+
+const projectCmd = ['itermocil', '~/.itermocil/codocil/', project]
+const initCmd = exec(``, (err, stdout, stderr) => {
+  if (err) {
+    // node couldn't execute the command
+    return
+  }
+
+  // the *entire* stdout and stderr (buffered)
+  console.log(`stdout: ${stdout}`)
+  console.log(`stderr: ${stderr}`)
+})
 
 // write to disk
 //deal with edge cases
