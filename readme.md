@@ -10,9 +10,14 @@ code as configuration
 
 # TODOs
 
-- codocil init
 - integrate with existing itermocil files in
   - the root directory
-  - project directories
-    - symlink
 - add autocompletion, and run commands
+
+deal with edge cases
+
+- name collision resolution
+- configure git commands
+- configure editor
+- configure panes
+- write language plugin architectur
