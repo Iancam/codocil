@@ -18,9 +18,6 @@ module.exports = {
     const params = argv.slice(3)
     const recursive = params[0] === '-r'
     const directory = params[1] || fs.cwd()
-    console.log(params)
-
-    console.log(params[1], params[0], recursive)
     const p = projects(directory, { recursive })
     info(`found ${p.length} projects`)
 
