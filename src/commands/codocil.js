@@ -1,8 +1,15 @@
 module.exports = {
   name: 'codocil',
   run: async toolbox => {
-    const { print } = toolbox
+    const { system, parameters } = toolbox
 
-    print.info('Welcome to your CLI')
+    console.log(
+      system.run('itermocil ~/.itermocil/codocil/' + parameters.first).then(
+        success => {
+          console.log(success)
+        },
+        fail => console.log(fail)
+      )
+    )
   }
 }
