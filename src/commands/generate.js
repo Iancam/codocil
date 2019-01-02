@@ -4,7 +4,6 @@ const projects = require('../directories')
 const { resolve, join } = require('path')
 const { expandTilde } = require('../utils')
 
-const CODOCIL_DIRECTORY = '~/.itermocil/codocil'
 module.exports = {
   name: 'init',
   alias: ['i', 'new'],
