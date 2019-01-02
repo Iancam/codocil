@@ -1,15 +1,20 @@
 module.exports = {
   name: 'codocil',
   run: async toolbox => {
-    const { system, parameters } = toolbox
+    const {
+      system,
+      parameters,
+      filesystem: { path },
+      config: {
+        codocil: { projectDirectory }
+      }
+    } = toolbox
 
-    console.log(
-      system.run('itermocil ~/.itermocil/codocil/' + parameters.first).then(
-        success => {
-          console.log(success)
-        },
-        fail => console.log(fail)
-      )
+    system.run('itermocil ' + path(projectDirectory, parameters.argv[2])).then(
+      success => {
+        console.log(success)
+      },
+      fail => console.log(fail)
     )
   }
 }

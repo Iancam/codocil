@@ -1,6 +1,10 @@
 module.exports = {
   name: 'codocil',
   defaults: {
-    projectDirectory: '~/.itermocil/.codocil'
+    projectDirectory: require('path').join(
+      require('os').homedir(),
+      '.itermocil',
+      '.codocil'
+    )
   }
 }

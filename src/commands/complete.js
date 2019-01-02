@@ -10,9 +10,11 @@ module.exports = {
         codocil: { projectDirectory }
       }
     } = toolbox
+    console.log(word, list(projectDirectory), projectDirectory, list('/users/'))
+
     info(
       (list(projectDirectory) || [])
-        .filter(project => project.search(word) !== -1)
+        .filter(project => (word ? project.search(word) !== -1 : true))
         .join('\n')
     )
   }
