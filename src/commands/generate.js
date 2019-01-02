@@ -1,5 +1,5 @@
 // const projects = require('./directories')
-const itermocil = require('../itermocil')
+const toItermocil = require('../itermocil')
 const projects = require('../directories')
 const { resolve, join } = require('path')
 const { expandTilde } = require('../utils')
@@ -13,7 +13,10 @@ module.exports = {
     const {
       parameters: { argv },
       filesystem: fs,
-      print: { info }
+      print: { info },
+      config: {
+        codocil: { projectDirectory }
+      }
     } = toolbox
     const params = argv.slice(3)
     const recursive = params[0] === '-r'
@@ -21,9 +24,9 @@ module.exports = {
     const p = projects(directory, { recursive })
     info(`found ${p.length} projects`)
 
-    const projectFiles = p.map(itermocil)
+    const projectFiles = p.map(toItermocil)
     projectFiles.forEach(({ fname, contents }) => {
-      const path = resolve(join(expandTilde(CODOCIL_DIRECTORY), fname))
+      const path = resolve(join(expandTilde(projectDirectory), fname))
       if (!fs.exists(path)) {
         fs.write(path, contents)
         info(`added ${path}`)

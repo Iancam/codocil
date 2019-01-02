@@ -12,12 +12,10 @@ code as configuration
 
 - integrate with existing itermocil files in
   - the root directory
-- add autocompletion, and run commands
-
-deal with edge cases
+- add autocompletion
 
 - name collision resolution
 - configure git commands
 - configure editor
 - configure panes
-- write language plugin architectur
+- write language plugin architecture
