@@ -1,5 +1,3 @@
-const { expandTilde } = require('../utils')
-
 module.exports = {
   name: 'complete',
   alias: ['cmpl'],
@@ -12,10 +10,8 @@ module.exports = {
         codocil: { projectDirectory }
       }
     } = toolbox
-    info(projectDirectory)
-    console.log(list(projectDirectory), list)
     info(
-      (list(expandTilde(projectDirectory)) || [])
+      (list(projectDirectory) || [])
         .filter(project => project.search(word) !== -1)
         .join('\n')
     )

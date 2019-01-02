@@ -49,8 +49,7 @@ module.exports = function findProjects(
   if (options.recursive) {
     return candidates.concat(
       fs
-        .readdirSync(parsedPath, { withFileTypes: true })
-        .filter(ent => ent.isDirectory())
+        .subdirectories(parsedPath)
         .map(ent => join(parsedPath, ent.name))
         .map(dir => findProjects(dir, { recursive: true }))
         .filter(dir => dir)
