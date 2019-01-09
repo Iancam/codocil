@@ -23,7 +23,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "gluegun": "next"
+    "gluegun": "next",
+    "lodash": "next"
   },
   "devDependencies": {
     "standard": "^12.0.1",

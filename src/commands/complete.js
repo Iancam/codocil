@@ -1,3 +1,4 @@
+const union = require('lodash/union')
 module.exports = {
   name: 'complete',
   alias: ['cmpl'],
@@ -7,13 +8,15 @@ module.exports = {
       filesystem: { list },
       print: { info },
       config: {
-        codocil: { projectDirectory }
+        codocil: { projectDirectory, itermocilDirectory }
       }
     } = toolbox
-    console.log(word, list(projectDirectory), projectDirectory, list('/users/'))
-
     info(
-      (list(projectDirectory) || [])
+      (
+        union(list(projectDirectory), list(itermocilDirectory)).filter(
+          s => !s.startsWith('.')
+        ) || []
+      )
         .filter(project => (word ? project.search(word) !== -1 : true))
         .join('\n')
     )
