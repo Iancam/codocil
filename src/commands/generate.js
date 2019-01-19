@@ -1,8 +1,6 @@
 // const projects = require('./directories')
-const toItermocil = require('../itermocil')
-const projects = require('../directories')
+
 const { resolve, join } = require('path')
-const { expandTilde } = require('../utils')
 
 module.exports = {
   name: 'init',
@@ -10,6 +8,9 @@ module.exports = {
 
   run: async toolbox => {
     const {
+      toItermocil,
+      getProjects,
+      expandTilde,
       parameters: { argv },
       filesystem: fs,
       print: { info },
@@ -20,7 +21,7 @@ module.exports = {
     const params = argv.slice(3)
     const recursive = params[0] === '-r'
     const directory = params[1] || fs.cwd()
-    const p = projects(directory, { recursive })
+    const p = getProjects(directory, { recursive })
     info(`found ${p.length} projects`)
 
     const projectFiles = p.map(toItermocil)
@@ -29,6 +30,8 @@ module.exports = {
       if (!fs.exists(path)) {
         fs.write(path, contents)
         info(`added ${path}`)
+      } else {
+        info(`file ${path} already exists`)
       }
     })
   }

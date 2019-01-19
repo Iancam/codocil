@@ -11,8 +11,11 @@ module.exports = {
       }
     } = toolbox
     const callItermocil = (directories, arg) => {
-      const path = directories.map(dir => path(directory, arg)).find(exists)
-      return system.run('itermocil ' + path)
+      const pathToProject = directories
+        .map(dir => path(dir, arg + '.yml'))
+        .find(exists)
+      const withoutSuffix = pathToProject.slice(0, pathToProject.length - 4)
+      return system.run('itermocil ' + withoutSuffix)
     }
     callItermocil(
       [projectDirectory, itermocilDirectory],
