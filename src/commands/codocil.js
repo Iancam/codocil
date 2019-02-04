@@ -14,6 +14,8 @@ module.exports = {
       const pathToProject = directories
         .map(dir => path(dir, arg + '.yml'))
         .find(exists)
+      console.log(pathToProject, directories)
+
       const withoutSuffix = pathToProject.slice(0, pathToProject.length - 4)
       return system.run('itermocil ' + withoutSuffix)
     }
