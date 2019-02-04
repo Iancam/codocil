@@ -17,7 +17,7 @@ test('outputs help', async () => {
 })
 
 test('generates file', async () => {
-  const output = await cli('generate foo')
+  const output = await cli('init foo')
   console.log(output)
 
   // expect(output).toContain('Generated file at models/foo-model.js')

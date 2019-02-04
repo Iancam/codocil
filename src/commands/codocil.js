@@ -6,29 +6,24 @@ module.exports = {
       system,
       parameters,
       filesystem: { path, exists },
+      print: { error, success },
       config: {
         codocil: { projectDirectory, itermocilDirectory }
       }
     } = toolbox
-    const callItermocil = (directories, arg) => {
-      const pathToProject = directories
-        .map(dir => path(dir, arg + '.yml'))
-        .find(exists)
-      console.log(pathToProject, directories)
-      const withoutSuffix = pathToProject.slice(0, pathToProject.length - 4)
-      console.log(
-        directories,
-        path(projectDirectory, parameters.argv[2]),
-        pathToProject,
-        withoutSuffix
-      )
+    const directories = [projectDirectory, itermocilDirectory]
+    const arg = parameters.argv[2]
+    const pathToProject = directories
+      .map(dir => path(dir, arg + '.yml'))
+      .find(exists)
 
->>>>>>> Stashed changes
-      return system.run('itermocil ' + withoutSuffix)
+    if (!pathToProject) {
+      error(`project ${arg} doesn't exist`)
+      return
     }
-    callItermocil(
-      [projectDirectory, itermocilDirectory],
-      parameters.argv[2]
-    ).then(console.log, console.log)
+
+    system
+      .run('itermocil ' + pathToProject.slice(0, pathToProject.length - 4))
+      .then(success, error)
   }
 }
