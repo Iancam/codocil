@@ -15,8 +15,15 @@ module.exports = {
         .map(dir => path(dir, arg + '.yml'))
         .find(exists)
       console.log(pathToProject, directories)
-
       const withoutSuffix = pathToProject.slice(0, pathToProject.length - 4)
+      console.log(
+        directories,
+        path(projectDirectory, parameters.argv[2]),
+        pathToProject,
+        withoutSuffix
+      )
+
+>>>>>>> Stashed changes
       return system.run('itermocil ' + withoutSuffix)
     }
     callItermocil(
