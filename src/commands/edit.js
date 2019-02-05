@@ -1,17 +1,16 @@
 module.exports = {
   name: 'edit',
   run: async toolbox => {
-    const { system, parameters } = toolbox
+    const {
+      system,
+      parameters,
+      print: { success, error }
+    } = toolbox
 
     console.log(
       system
-        .run('itermocil --edit ~/.itermocil/codocil/' + parameters.first)
-        .then(
-          success => {
-            console.log(success)
-          },
-          fail => console.log(fail)
-        )
+        .run('itermocil --edit ~/.itermocil/.codocil/' + parameters.first)
+        .then(success, error)
     )
   }
 }
