@@ -22,7 +22,7 @@ module.exports = {
     const recursive = params[0] === '-r'
     const directory = params[1] || fs.cwd()
     const p = getProjects(directory, { recursive })
-    info(`found ${p.length} projects`)
+    info(`Found ${p.length} projects in ${directory}`)
 
     const projectFiles = p.map(toItermocil)
     projectFiles.forEach(({ fname, contents }) => {
