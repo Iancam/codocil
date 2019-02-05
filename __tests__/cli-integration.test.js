@@ -15,3 +15,8 @@ test('outputs help', async () => {
   const output = await cli('--help')
   expect(output).toContain('0.0.1')
 })
+
+test('itermocil missing is handled', async () => {
+  // (brew update
+  // $ bre)w install TomAnthony / brews / itermocil
+})
