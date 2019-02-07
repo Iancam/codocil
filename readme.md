@@ -1,11 +1,11 @@
 # Codocil, a supplement to termocil
 
-(Itermocil)[https://github.com/TomAnthony/itermocil] "
-iTermocil allows you to setup pre-configured layouts of windows and panes in iTerm2." Codocil automates the creation of itermocil files for javascript projects (more languages to be added on request). It also wraps some Itermocil functionality for ease of use.
+[Itermocil](https://github.com/TomAnthony/itermocil)
+iTermocil allows you to setup pre-configured layouts of windows and panes in iTerm2. Codocil automates the creation of itermocil files for javascript projects (more languages to be added on request). It also wraps some Itermocil functionality for ease of use.
 
 ## Installation
 
-Install (Itermocil)[https://github.com/TomAnthony/itermocil]
+Install [Itermocil](https://github.com/TomAnthony/itermocil)
 
 ```
 $ brew update
@@ -16,15 +16,15 @@ Then
 
 ## Usage
 
-Point `Codocil init -r` at the root of your developer directory and all folders that have a known project identifier (excluding node_modules/\*, my goodness could you imagine?) will be given an itermocil document. The termocil configuration will have two panes, one for git and one for your server.
+Point `Codocil init -r` at the root of your developer directory and all folders that have a known project identifier (excluding node_modules/\*, my goodness could you imagine?) will be given an itermocil document. The itermocil configuration will have two panes, one for git and one for your server.
 
-Codocil currently only recognizes javascript, though I plan to extend it to work with other languages as well.
+Codocil currently only recognizes JavaScript, though I plan to extend it to work with other languages as well.
 
 code as configuration
 
 ## Autocomplete
 
-This section has been slightly modified from its complement in (itermocil)[https://github.com/TomAnthony/itermocil#shell-autocompletion].
+This section has been slightly modified from its complement in [itermocil](https://github.com/TomAnthony/itermocil#shell-autocompletion).
 
 To get autocompletion when typing codocil <Tab>
 
