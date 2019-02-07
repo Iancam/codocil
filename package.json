@@ -1,8 +1,7 @@
 {
   "name": "codocil",
   "version": "0.0.1",
-  "description": "codocil CLI",
-  "private": true,
+  "description": "Automating itermocil project creation for Javascript projects",
   "bin": {
     "codocil": "bin/codocil"
   },
@@ -42,5 +41,19 @@
   "prettier": {
     "semi": false,
     "singleQuote": true
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iancam/codocil.git"
+  },
+  "keywords": [
+    "Itermocil",
+    "Iterm2",
+    "Automation"
+  ],
+  "author": "Ian Campbell",
+  "bugs": {
+    "url": "https://github.com/Iancam/codocil/issues"
+  },
+  "homepage": "https://github.com/Iancam/codocil#readme"
 }

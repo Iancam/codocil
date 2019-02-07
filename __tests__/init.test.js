@@ -1,6 +1,4 @@
 const { filesystem } = require('gluegun')
-const { join } = require('path')
-const config = require('../src/codocil.config')
 
 const { setup } = require('../src/test_utils')
 
