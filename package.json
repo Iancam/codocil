@@ -1,6 +1,6 @@
 {
   "name": "codocil",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Automating itermocil project creation for Javascript projects",
   "bin": {
     "codocil": "bin/codocil"
