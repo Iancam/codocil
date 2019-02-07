@@ -1,34 +1,25 @@
-const { system, filesystem } = require('gluegun')
-const { resolve, join } = require('path')
+const { filesystem } = require('gluegun')
+const { join } = require('path')
 const config = require('../src/codocil.config')
-const src = resolve(__dirname, '..')
 
-const cli = async cmd => {
-  const projectName = 'testDir'
-  filesystem.dir('testDir')
-  filesystem.cwd('testDir')
-  filesystem.file('package.json')
-  system.run('cd testDir')
-  return system.run('node ' + resolve(src, 'bin', 'codocil') + ` ${cmd}`)
-}
-test('generates file', async () => {
-  const projectName = 'testDir'
-  filesystem.dir('testDir')
-  filesystem.cwd('testDir')
-  filesystem.file('package.json')
+const { setup } = require('../src/test_utils')
 
-  const output = await cli('init ./testDir')
+test('generates correct file', async () => {
+  const projectName = 'testDir'
+  const { cli, tearDown } = setup(projectName)
+
+  const output = await cli('init')
   expect(output).toContain('Found 1 projects')
-  expect(output).toContain('testDir')
+  expect(output).toContain(projectName)
 
-  const itermocilFilePath = join(config.defaults.projectDirectory, projectName)
+  const itermocilFilePath = join(
+    config.defaults.projectDirectory,
+    projectName + '.yml'
+  )
+  expect(filesystem.exists(itermocilFilePath)).toBe('file')
   const itermocilFile = filesystem.read(itermocilFilePath)
 
-  expect(itermocilFile).toContain(`module.exports = {`)
-  // expect(foomodel).toContain(`name: 'foo'`)
+  expect(itermocilFile).toContain(projectName)
 
-  // cleanup artifact
-  filesystem.cwd('../')
-  filesystem.remove('testDir')
-  filesystem.remove(itermocilFilePath)
+  tearDown()
 })

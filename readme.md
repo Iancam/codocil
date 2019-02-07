@@ -48,16 +48,7 @@ To get autocompletion when typing codocil <Tab> in a fish session, add this line
 
 # TODOs
 
-- handle .itermocil file creation
-- integrate with existing itermocil files in
-
-  - the root directory
-
 - name collision resolution
-- configure git commands
-- configure editor
-- configure panes
-- write language plugin architecture
 
 ## Tests
 
