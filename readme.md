@@ -1,32 +1,32 @@
 # Codocil, a supplement to termocil
 
-(Itermocil)[https://github.com/TomAnthony/itermocil] "
+[Itermocil](https://github.com/TomAnthony/itermocil)
 iTermocil allows you to setup pre-configured layouts of windows and panes in iTerm2." Codocil automates the creation of itermocil files for javascript projects (more languages to be added on request). It also wraps some Itermocil functionality for ease of use.
 
 ## Installation
 
-Install (Itermocil)[https://github.com/TomAnthony/itermocil]
+Install [Itermocil](https://github.com/TomAnthony/itermocil)
 
 ```
 $ brew update
 $ brew install TomAnthony/brews/itermocil
 ```
 
-Then
+Then `npm install -g codocil` or `yarn global add codocil`
 
 ## Usage
 
-Point `Codocil init -r` at the root of your developer directory and all folders that have a known project identifier (excluding node_modules/\*, my goodness could you imagine?) will be given an itermocil document. The termocil configuration will have two panes, one for git and one for your server.
+Point `Codocil init -r` at the root of your developer directory and all folders that have a known project identifier (excluding node_modules/\*, my goodness could you imagine?) will be given an itermocil document. The Itermocil configuration will have two panes, one for git and one for your server.
 
-Codocil currently only recognizes javascript, though I plan to extend it to work with other languages as well.
+Edit a particular project with `codocil edit <(Project Name>`
 
-code as configuration
+Codocil currently only recognizes JavaScript.
 
 ## Autocomplete
 
-This section has been slightly modified from its complement in (itermocil)[https://github.com/TomAnthony/itermocil#shell-autocompletion].
+This section has been slightly modified from its complement in [itermocil](https://github.com/TomAnthony/itermocil#shell-autocompletion)
 
-To get autocompletion when typing codocil <Tab>
+To get autocompletion when typing codocil \<Tab\>
 
 ### In Zsh
 
@@ -45,14 +45,3 @@ To get autocompletion when typing codocil <Tab> in a bash session, add this line
 To get autocompletion when typing codocil <Tab> in a fish session, add this line to your ~/.config/fish/config.fish file:
 
 `complete -c codocil -a "(codocil --cmpl)"`
-
-# TODOs
-
-- name collision resolution
-
-## Tests
-
-- use mock-js
-- finish testing completions
-- - add test project, expect op to include it
--
