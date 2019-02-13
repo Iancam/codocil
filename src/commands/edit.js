@@ -4,13 +4,17 @@ module.exports = {
     const {
       system,
       parameters,
-      print: { success, error },
-      config: { codocil: projectDirectory }
+      print: { success, error, info },
+      config: {
+        codocil: { projectDirectory }
+      },
+      filesystem: { path }
     } = toolbox
-    info(
-      system
-        .run(['itermocil --edit', projectDirectory, parameters.first].join(' '))
-        .then(success, error)
-    )
+    const cmd = [
+      'itermocil --edit',
+      path(projectDirectory, parameters.first)
+    ].join(' ')
+    info(cmd)
+    info(system.run(cmd).then(success, error))
   }
 }
