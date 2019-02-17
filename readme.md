@@ -1,4 +1,4 @@
-# Codocil, a supplement to termocil
+# Codocil: defaults for Itermocil
 
 [Itermocil](https://github.com/TomAnthony/itermocil)
 iTermocil allows you to setup pre-configured layouts of windows and panes in iTerm2. Codocil automates the creation of itermocil files for javascript projects (more languages to be added on request). It also wraps some Itermocil functionality for ease of use.
